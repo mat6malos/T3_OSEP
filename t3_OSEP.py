@@ -1,6 +1,7 @@
-from Vinicial import OptimizarGeneradores
+from OPTI import OptimizarGeneradores
 from Graf import GraficarHoras
 from P_viento import GeneradorPotencia
+from Matrizes import MatrizSimbolica
 
 # Datos Generadores
 Pmin            = [150, 20, 25, 20, 10]  # MW
@@ -14,19 +15,22 @@ Ramp            = [136.5, 130, 162, 130, 55]  # MW/h
 Demand          = [390, 420, 480, 530, 560, 620, 640, 670, 730, 780, 810, 840, 780, 730, 670, 590, 560, 620, 670, 780, 730, 620, 500, 450]  # MW
 Vv              = [7.5, 4.5, 5, 4.5, 2.5, 3.5, 3.5, 5, 3, 5.5, 7, 9, 9, 11.5, 13, 13.5, 13.5, 13, 11.5, 10, 9.5, 8.5, 9, 10.5]  # m/s
 Vp              = [[0, 0], [0.5, 0], [1, 0], [1.5, 0], [2, 0], [2.5, 0], [3, 29], [3.5, 81], [4, 146], [4.5, 226], [5, 327], [5.5, 452], [6, 600], [6.5, 775], [7, 981], [7.5, 1216], [8, 1487], [8.5, 1780], [9, 2103], [9.5, 2437], [10, 2753], [10.5, 2999], [11, 3159], [11.5, 3241], [12, 3276], [12.5, 3290], [13, 3297], [13.5, 3300]] # m/s, kW
+num_horas       = 24
 
 # Caso inicial
 ## Solución de la minimización
-C_o             = OptimizarGeneradores(Demand, Pmin, Pmax, a, b, c)
-V_o, f_o        = C_o.optimizar()
+C_o             = OptimizarGeneradores(Demand, Pmin, Pmax, a, b, c, num_horas)
+V_o, f_o        = C_o.optimizaro()
+
+
+# Crear un objeto de la clase GeneradorPotencia
+generador = GeneradorPotencia(Vv, Vp)
+
+FO         = C_o.FO(Cs)
+constraints = C_o.constraints()
 
 
 
-#? # Crear un objeto de la clase GeneradorPotencia
-#? generador = GeneradorPotencia(Vv, Vp)
-#? # Acceder a los resultados
-#? print("Potencia máxima generada (Gvmax):", generador.Gvmax)
-#? print("Potencia mínima generada (Gvmin):", generador.Gvmin)
 
 # Graficos
 #? GraficarHoras(Demand)

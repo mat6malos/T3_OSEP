@@ -102,4 +102,5 @@ class OptimizarGeneradores:
         for i in range(self.U.shape[0]):  # Recorrer las filas
             for j in range(self.U.shape[1]):  # Recorrer las columnas
                 constraints.append(self.P[i, j] <= A_max[i, j])  # Restricción sobre cada elemento
+        
         return constraints

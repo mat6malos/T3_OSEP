@@ -2,6 +2,8 @@ from OPTI import OptimizarGeneradores
 from Graf import GraficarHoras
 from P_viento import GeneradorPotencia
 from Matrizes import MatrizSimbolica
+import cvxpy as cp
+
 
 # Datos Generadores
 Pmin            = [150, 20, 25, 20, 10]  # MW
@@ -29,7 +31,10 @@ generador = GeneradorPotencia(Vv, Vp)
 FO         = C_o.FO(Cs)
 constraints = C_o.constraints()
 
+prob = cp.Problem(cp.Minimize(FO), constraints)
 
+# Resolver el problema
+prob.solve(solver=cp.CBC)
 
 
 # Graficos
